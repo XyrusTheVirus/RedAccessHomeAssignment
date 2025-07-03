@@ -1,0 +1,5 @@
+{
+  "mongodb_url": "mongodb://mongo:27017/",
+  "database": "app",
+  "migrations_path": "migrations"
+}
