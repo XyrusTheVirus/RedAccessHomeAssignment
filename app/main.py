@@ -1,15 +1,8 @@
-from typing import Union
-
 from fastapi import FastAPI
+from api.routes import api_router
+import logging
+import os
 
-app = FastAPI()
-
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+logging.basicConfig(level=logging.getLevelName(os.getenv("LOG_LEVEL", "INFO")))
+app = FastAPI(redirect_slashes=False)
+app.include_router(api_router)

@@ -2,3 +2,5 @@ fastapi
 uvicorn
 pymongo
 pymongo-migrate
+motor
+pydantic
