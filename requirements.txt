@@ -6,3 +6,4 @@ motor
 pydantic
 pydantic_core
 celery[redis]
+redis[async]

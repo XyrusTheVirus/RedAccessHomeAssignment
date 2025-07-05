@@ -1,3 +1,3 @@
-from .rule_dto import RuleCreate, RuleUpdate
+from .rule_dto import RuleCreate, RuleUpdate, PyObjectId
 
-__all__ = ["RuleCreate", "RuleUpdate"]
+__all__ = ["RuleCreate", "RuleUpdate", "PyObjectId"]

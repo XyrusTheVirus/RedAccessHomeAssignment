@@ -1,17 +1,9 @@
 from pydantic import BaseModel, Field
-from typing import Optional, Any
+from typing import Optional
 from datetime import date
 from bson import ObjectId
-from pydantic_core import core_schema
-from pydantic import GetCoreSchemaHandler
+from models.dto.rule_dto import PyObjectId
 
-class PyObjectId(ObjectId):
-    @classmethod
-    def __get_pydantic_core_schema__(cls, source_type: Any, handler: GetCoreSchemaHandler) -> core_schema.CoreSchema:
-        return core_schema.no_info_plain_validator_function(cls.validate)
-    @classmethod
-    def validate(cls, v):
-        return v if isinstance(v, ObjectId) else ObjectId(v)
 
 class Rule(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")

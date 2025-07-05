@@ -4,6 +4,7 @@ from typing import Optional, Union, Literal
 from bson import ObjectId
 from models.dto.rule_dto import RuleCreate, RuleUpdate
 
+
 class PyObjectId(ObjectId):
     @classmethod
     def __get_validators__(cls):

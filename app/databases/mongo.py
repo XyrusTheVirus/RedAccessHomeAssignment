@@ -2,6 +2,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from typing import Any
 import os
 
+
 class MongoService:
     def __init__(self, uri: str = None, db_name: str = None):
         self._uri = uri or os.getenv("MONGODB_URI", "mongodb://localhost:27017")
