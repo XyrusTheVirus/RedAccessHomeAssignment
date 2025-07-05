@@ -4,3 +4,5 @@ pymongo
 pymongo-migrate
 motor
 pydantic
+pydantic_core
+celery[redis]

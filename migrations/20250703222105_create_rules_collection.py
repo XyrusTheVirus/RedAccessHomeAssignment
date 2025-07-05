@@ -29,8 +29,8 @@ def upgrade(db):
                         "description": "Optional expiration date (ISO format)"
                     },
                     "customer_id": {
-                        "bsonType": "int",
-                        "description": "Integer referring to a customer"
+                        "bsonType": "string",
+                        "description": "Customer object ID"
                     }
                 }
             }
@@ -45,6 +45,7 @@ def upgrade(db):
 
         # Add unique index to 'name'
         db.rules.create_index("name", unique=True)
+        db.rules.create_index("expired_date")
         print("✅ Migration '0001_create_rules' applied.")
 
 def downgrade(db):

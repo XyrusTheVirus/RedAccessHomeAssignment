@@ -1,3 +1,3 @@
-from .rule import RuleInDB
+from .rule import Rule
 
-__all__ = ["RuleInDB"]
+__all__ = ["Rule"]

@@ -6,8 +6,8 @@ services:
       - "8000:8000"
     depends_on:
       - mongo
-    environment:
-      - MONGODB_URI=${MONGODB_URI}
+    env_file:
+      - .env
     volumes:
       - ./app:/app
       - ./scripts/start.sh:/app/start.sh
@@ -24,6 +24,7 @@ services:
 
   migrate:
     build: .
+    container_name: migrate
     command: bash -c "pip install -r requirements.txt && pymongo-migrate migrate -u 'mongodb://mongo:27017/app' -m migrations"
     depends_on:
       - mongo
@@ -31,9 +32,42 @@ services:
       - ./migrations:/app/migrations
       - ./mongo_migrate.json:/app/mongo_migrate.json
       - ./requirements.txt:/app/requirements.txt
-    environment:
-      - MONGODB_URI=mongodb://mongo:27017
+    env_file:
+      - .env
 
+  redis:
+    image: redis:7
+    container_name: redis
+    restart: always
+
+  celery-worker:
+    build: .
+    container_name: celery-worker
+    command: bash -c "pip install -r requirements.txt && celery -A celery_worker worker --loglevel=info"
+    depends_on:
+      - redis
+    volumes:
+      - ./app:/app
+      - ./scripts/start.sh:/app/start.sh
+      - ./migrations:/app/migrations
+      - ./requirements.txt:/app/requirements.txt
+    env_file:
+      - .env
+
+  celery-beat:
+    build: .
+    container_name: celery-beat
+    command: bash -c "pip install -r requirements.txt && celery -A celery_worker beat --loglevel=info"
+    depends_on:
+      - redis
+    volumes:
+      - ./app:/app
+      - ./scripts/start.sh:/app/start.sh
+      - ./migrations:/app/migrations
+      - ./requirements.txt:/app/requirements.txt
+    env_file:
+      - .env
 
 volumes:
   mongo_data:
+

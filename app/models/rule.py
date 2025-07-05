@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from typing import Optional, Any
-from datetime import datetime
+from datetime import date
 from bson import ObjectId
 from pydantic_core import core_schema
 from pydantic import GetCoreSchemaHandler
@@ -13,13 +13,13 @@ class PyObjectId(ObjectId):
     def validate(cls, v):
         return v if isinstance(v, ObjectId) else ObjectId(v)
 
-class RuleInDB(BaseModel):
+class Rule(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str
     description: str
     ip: str
-    expired_date: Optional[datetime] = None
-    customer_id: int
+    expired_date: Optional[date] = None
+    customer_id: str
 
     model_config = {
         "populate_by_name": True,
