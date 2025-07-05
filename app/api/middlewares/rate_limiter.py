@@ -1,11 +1,12 @@
+import re
 
 from fastapi import Request
 from fastapi.responses import JSONResponse
-from starlette.middleware.base import BaseHTTPMiddleware
 from services.rate_limiter_service import RateLimiterService
-import re
+from starlette.middleware.base import BaseHTTPMiddleware
 
 CUSTOMER_ID_REGEX = re.compile(r"^/customers/(?P<customer_id>[a-f0-9]{24})/")
+
 
 class RateLimiterMiddleware(BaseHTTPMiddleware):
     def __init__(self, app, rate_limiter_service: RateLimiterService):

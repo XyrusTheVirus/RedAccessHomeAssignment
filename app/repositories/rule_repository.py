@@ -1,12 +1,12 @@
-from motor.motor_asyncio import AsyncIOMotorDatabase
 from bson import ObjectId
-from models.dto import RuleCreate, RuleUpdate
-from models import Rule
-from dependencies import get_mongo_service
 from databases.mongo import MongoService
-from fastapi import Depends
 from decorators.audit_decorator import audit_action
+from dependencies import get_mongo_service
+from fastapi import Depends
+from models import Rule
+from models.dto import RuleCreate, RuleUpdate
 from services.audit_emitter import AuditLogger
+
 
 class RuleRepository:
     def __init__(self, mongo: MongoService = Depends(get_mongo_service)):

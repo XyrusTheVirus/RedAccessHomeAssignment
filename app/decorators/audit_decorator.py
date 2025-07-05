@@ -1,16 +1,18 @@
-import logging
 from functools import wraps
+from typing import Callable, Optional, Any
+
 from bson import ObjectId
 from bson.errors import InvalidId
-from services.audit_emitter import AuditLogger
-from typing import Callable, Optional, Any
 from pydantic import BaseModel
+from services.audit_emitter import AuditLogger
+
 
 def audit_action(operation: str):
     """
      Decorator to automatically log rule_audit_logs after create/update/delete operations.
      Extracts rule_id, customer_id, and body from args or kwargs.
      """
+
     def decorator(func: Callable):
         @wraps(func)
         async def wrapper(self, *args, **kwargs):
@@ -55,5 +57,7 @@ def audit_action(operation: str):
                 )
 
             return result
+
         return wrapper
+
     return decorator

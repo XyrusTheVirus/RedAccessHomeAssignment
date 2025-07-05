@@ -1,5 +1,6 @@
-from pydantic import BaseModel, Field
 from bson import ObjectId
+from pydantic import BaseModel, Field
+
 
 class PyObjectId(ObjectId):
     @classmethod
@@ -13,6 +14,7 @@ class PyObjectId(ObjectId):
     @classmethod
     def __modify_schema__(cls, field_schema):
         field_schema.update(type="string")
+
 
 class Customer(BaseModel):
     id: PyObjectId = Field(alias="_id")

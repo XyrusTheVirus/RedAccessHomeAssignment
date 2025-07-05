@@ -1,6 +1,8 @@
 from datetime import date, datetime, time
+
 from celery_worker import celery_app
 from dependencies import get_mongo_service
+
 
 @celery_app.task
 def delete_expired_rules():

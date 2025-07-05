@@ -1,7 +1,9 @@
 from datetime import datetime
+from typing import Optional
+
 from bson import ObjectId
 from events.rule_event import emit_rule_audit
-from typing import Optional
+
 
 class AuditLogger:
     def __init__(self, user: str = "system"):

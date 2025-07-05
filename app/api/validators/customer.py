@@ -1,14 +1,13 @@
-import logging
-
 from bson import ObjectId
-from fastapi import Depends, HTTPException, Path
-from dependencies import get_mongo_service
 from databases.mongo import MongoService
+from dependencies import get_mongo_service
+from fastapi import Depends, HTTPException, Path
+
 
 async def validate_customer_exists(
-    customer_id: str = Path(...),
-    mongo: MongoService = Depends(get_mongo_service)
-)->str :
+        customer_id: str = Path(...),
+        mongo: MongoService = Depends(get_mongo_service)
+) -> str:
     """
     Checks whether the customer ID (Mongo ObjectId) coming from the http request exists, else throwing exception
 

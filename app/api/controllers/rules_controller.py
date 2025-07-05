@@ -1,17 +1,16 @@
-import logging
-
-from fastapi import APIRouter, HTTPException, Body, Depends
-from dependencies import get_mongo_service
-from repositories.rule_repository import RuleRepository
-from models.rule import Rule
-from models.dto.rule_dto import RuleCreate, RuleUpdate
-from models.dto.rule_batch_dto import RuleBatchItem
-from api.validators.customer import validate_customer_exists
 from typing import List
+
+from api.validators.customer import validate_customer_exists
+from dependencies import get_mongo_service
+from fastapi import APIRouter, HTTPException, Body, Depends
 from fastapi.responses import JSONResponse
-from fastapi.encoders import jsonable_encoder
+from models.dto.rule_batch_dto import RuleBatchItem
+from models.dto.rule_dto import RuleCreate, RuleUpdate
+from models.rule import Rule
+from repositories.rule_repository import RuleRepository
 
 router = APIRouter(prefix="/customers/{customer_id}/rules", tags=["rules"])
+
 
 @router.post("/", response_model=Rule)
 async def create_rule(
@@ -29,6 +28,7 @@ async def create_rule(
     data["customer_id"] = customer_id
     repo = RuleRepository(db)
     return await repo.create(data)
+
 
 @router.put("/{id}", response_model=Rule)
 async def update_rule(
@@ -49,6 +49,7 @@ async def update_rule(
         raise HTTPException(status_code=404, detail="Rule not found")
     return rule
 
+
 @router.delete("/{id}")
 async def delete_rule(
         id: str,
@@ -66,12 +67,13 @@ async def delete_rule(
         raise HTTPException(status_code=404, detail="Rule not found")
     return {"status": "deleted"}
 
+
 @router.post("/~")
 async def batch_process_rules(
-    customer_id: str = Depends(validate_customer_exists),
-    actions: List[RuleBatchItem] = [],
-    db=Depends(get_mongo_service),
-)->JSONResponse:
+        customer_id: str = Depends(validate_customer_exists),
+        actions: List[RuleBatchItem] = [],
+        db=Depends(get_mongo_service),
+) -> JSONResponse:
     """
 
     :param customer_id:
@@ -97,9 +99,11 @@ async def batch_process_rules(
 
             # Append to results list successful operation or operation which fails without raising any exception
             if result is not None and result is not False:
-                result = {"success": f"{action.operation} successfully finished with data: {action.data.model_dump(exclude_unset=True)}", "operation": action.operation}
+                result = {
+                    "success": f"{action.operation} successfully finished with data: {action.data.model_dump(exclude_unset=True)}",
+                    "operation": action.operation}
             else:
-                result ={"error": f"{action.operation} unexpectedly failed", "operation": action.operation}
+                result = {"error": f"{action.operation} unexpectedly failed", "operation": action.operation}
             results.append(result)
         except Exception as e:
             results.append({"error": str(e), "operation": action.operation})

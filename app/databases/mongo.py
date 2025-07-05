@@ -1,6 +1,7 @@
-from motor.motor_asyncio import AsyncIOMotorClient
-from typing import Any
 import os
+from typing import Any
+
+from motor.motor_asyncio import AsyncIOMotorClient
 
 
 class MongoService:

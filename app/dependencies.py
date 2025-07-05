@@ -1,7 +1,7 @@
-from databases.mongo import MongoService
-from databases.redis import RedisService
 from os import getenv
 
+from databases.mongo import MongoService
+from databases.redis import RedisService
 
 mongo_service = MongoService()
 

@@ -1,7 +1,6 @@
-import logging
-
-from events.rule_event import on_rule_audit
 from dependencies import get_mongo_service
+from events.rule_event import on_rule_audit
+
 
 @on_rule_audit
 async def log_rule_audit(payload):

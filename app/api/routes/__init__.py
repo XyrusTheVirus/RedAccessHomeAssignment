@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+
 from ..controllers.rules_controller import router as rule_router
 
 api_router = APIRouter()

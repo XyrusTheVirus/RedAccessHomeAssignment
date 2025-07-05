@@ -1,7 +1,9 @@
-from typing import Literal, TypedDict, Callable, Awaitable
-from datetime import datetime
-from bson import ObjectId
 import asyncio
+from datetime import datetime
+from typing import Literal, TypedDict, Callable, Awaitable
+
+from bson import ObjectId
+
 
 class RuleAuditPayload(TypedDict):
     operation: Literal["create", "update", "delete"]
@@ -10,7 +12,9 @@ class RuleAuditPayload(TypedDict):
     user: str
     timestamp: datetime
 
+
 _listeners: list[Callable[[RuleAuditPayload], Awaitable[None]]] = []
+
 
 async def emit_rule_audit(payload: RuleAuditPayload):
     for listener in _listeners:
@@ -19,6 +23,7 @@ async def emit_rule_audit(payload: RuleAuditPayload):
             await result
         else:
             result
+
 
 def on_rule_audit(func: Callable[[RuleAuditPayload], Awaitable[None]]):
     _listeners.append(func)

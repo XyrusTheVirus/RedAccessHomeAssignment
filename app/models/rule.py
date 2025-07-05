@@ -1,8 +1,9 @@
-from pydantic import BaseModel, Field
-from typing import Optional
 from datetime import date
+from typing import Optional
+
 from bson import ObjectId
 from models.dto.rule_dto import PyObjectId
+from pydantic import BaseModel, Field
 
 
 class Rule(BaseModel):

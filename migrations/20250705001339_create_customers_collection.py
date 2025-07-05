@@ -1,5 +1,6 @@
 dependencies = ["20250703222105_create_rules_collection"]
 
+
 def upgrade(db):
     db.create_collection("customers")
     db.customers.create_index("name", unique=True)
@@ -23,8 +24,10 @@ def upgrade(db):
         }
     })
 
+
 def downgrade(db):
     db.drop_collection("customers")
+
 
 def comment(self):
     return 'Creating customers collection'

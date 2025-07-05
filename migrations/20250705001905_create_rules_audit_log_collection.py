@@ -1,5 +1,6 @@
 dependencies = ["20250705001339_create_customers_collection"]
 
+
 def upgrade(db):
     db.create_collection("rule_audit_logs")
     db.rule_audit_logs.create_index("customer_id")
@@ -34,9 +35,10 @@ def upgrade(db):
         "validationLevel": "moderate"
     })
 
+
 def downgrade(db):
     db.drop_collection("rule_audit_logs")
 
+
 def comment(self):
     return 'Creating rules audit log collection'
-    
