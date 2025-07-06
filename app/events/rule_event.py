@@ -17,6 +17,10 @@ _listeners: list[Callable[[RuleAuditPayload], Awaitable[None]]] = []
 
 
 async def emit_rule_audit(payload: RuleAuditPayload):
+    """
+
+    :param payload:
+    """
     for listener in _listeners:
         result = listener(payload)
         if asyncio.iscoroutine(result):
@@ -26,5 +30,10 @@ async def emit_rule_audit(payload: RuleAuditPayload):
 
 
 def on_rule_audit(func: Callable[[RuleAuditPayload], Awaitable[None]]):
+    """
+
+    :param func:
+    :return:
+    """
     _listeners.append(func)
     return func

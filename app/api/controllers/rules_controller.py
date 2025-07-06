@@ -19,6 +19,8 @@ async def create_rule(
         db=Depends(get_mongo_service)
 ):
     """
+    Creates new rule entity
+
     :param customer_id:
     :param payload:
     :param db:
@@ -38,6 +40,8 @@ async def update_rule(
         customer_id: str = Depends(validate_customer_exists)
 ):
     """
+    Updates new rule entity
+
     :param id:
     :param data:
     :param db:
@@ -57,6 +61,8 @@ async def delete_rule(
         customer_id: str = Depends(validate_customer_exists)
 ):
     """
+    Deletes rule entity
+
     :param id:
     :param db:
     :return:
@@ -75,6 +81,7 @@ async def batch_process_rules(
         db=Depends(get_mongo_service),
 ) -> JSONResponse:
     """
+    Operates multiple operations simultaneously
 
     :param customer_id:
     :param actions:

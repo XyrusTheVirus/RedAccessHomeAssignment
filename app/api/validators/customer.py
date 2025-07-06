@@ -13,7 +13,7 @@ async def validate_customer_exists(
 
     :param customer_id:
     :param mongo:
-    :return:
+    :return: str
     """
     db = mongo.get_db()
     try:

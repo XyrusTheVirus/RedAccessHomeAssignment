@@ -20,6 +20,11 @@ class RateLimiterService:
         self.redis = redis.get_client()
 
     async def is_allowed(self, customer_id: str) -> tuple[bool, Optional[str], Optional[int]]:
+        """
+        Validates whether the number of requests per customer haven't reached the limit
+        :param customer_id:
+        :return: tuple[bool, Optional[str], Optional[int]]
+        """
         try:
             customer_oid = ObjectId(customer_id)
         except InvalidId:
