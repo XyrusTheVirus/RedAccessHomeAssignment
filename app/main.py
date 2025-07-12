@@ -10,6 +10,7 @@ from databases.redis import RedisService
 from dependencies import get_mongo_service
 from dependencies import get_redis_service
 from services.rate_limiter_service import RateLimiterService
+import services.audit_logger
 
 logging.basicConfig(level=logging.getLevelName(os.getenv("LOG_LEVEL", "INFO")))
 app = FastAPI(redirect_slashes=False)
